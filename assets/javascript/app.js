@@ -20,6 +20,37 @@ var reputationKey = "717e3976df9a4ddba7f5cf0f139ba0d2";
 
 var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
+function makeRequest(url, cb) {
+  $.ajax({
+    url: url,
+    method: "GET"
+  })
+  .done(function(response){
+    console.log(response);
+    cb(response);
+  });
+}
+
+function writePhoneInfo(object) {
+  var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+  console.log(person);
+  var carrier = object.carrier;
+  console.log(carrier);
+  var reputation = object.reputation_level;
+  console.log(reputation);
+  var callType = object.reputation_details;
+  console.log(callType);
+  var location = object.current_addresses[0].lat_long[1,2];
+  console.log(location);
+
+  var $row = $('<tr>');
+  $row.append($('<td>').text(person));
+  $row.append($('<td>').text(carrier));
+  $row.append($('<td>').text(reputation));
+  $row.append($('<td>').text(callType));
+  $('#number-info').append($row);
+}
+
 //Creating main function that happens upon number submit click.
 $("#add-number-btn").on("click", function(event) {
     event.preventDefault();
@@ -33,20 +64,7 @@ $("#add-number-btn").on("click", function(event) {
     console.log(queryURLReverse);
     console.log(queryURLReputation);
 
-    $.ajax({
-  		url: queryURLReverse,
-  		method: "GET"
-  	})
-    .done(function(response){
-      console.log(response);
-    });
-
-    $.ajax({
-  		url: queryURLReputation,
-  		method: "GET"
-  	})
-    .done(function(response){
-      console.log(response);
-    });
+    makeRequest(queryURLReverse, writePhoneInfo);
+    makeRequest(queryURLReputation, writePhoneInfo);
 
 });
