@@ -35,12 +35,34 @@ function makeRequest(url, cb) {
 
 function writeReverseInfo(object) {
   //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
+ master
+  var person = "";
+  var carrier = "";
+  if (object.belongs_to[0].firstname && object.belongs_to[0].lastname) {
+    person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+  } else if (object.belongs_to[0].firstname) {
+    person = object.belongs_to[0].firstname;
+  } else if (object.belongs_to[0].lastname) {
+    person = object.belongs_to[0].lastname;
+  } else {
+    person = "Not Available";
+  }
+
+  if (object.carrier) {
+    carrier = object.carrier;
+  } else {
+    carrier = "Not Available";
+  }
+    
+
   var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
   var carrier = object.carrier;
+
   var lat = object.current_addresses.object.lat_long.latitude;
   var lng = object.current_addresses.object.lat_long.longitude;
   console.log(lat);
   console.log(lng);
+
 
   var $row = $('<tr>');
   $row.append($('<td>').text(person));
