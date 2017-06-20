@@ -1,0 +1,30 @@
+body {
+  background-image: url("../../assets/images/gray.png");
+}
+
+#number-search-panel, #number-info-body {
+  height:150px;
+}
+
+.jumbotron {
+  background-image:url("../../assets/images/payphone2.jpg");
+  color: white;
+  background-size: cover;
+  background-position: center;
+  margin-top:50px;
+}
+
+#main-head {
+  font-size: 75px;
+}
+
+#map {
+  height:400px;
+  width:100%;
+}
+
+.navbar {
+  position:fixed;
+  z-index:1;
+  width:100%;
+}

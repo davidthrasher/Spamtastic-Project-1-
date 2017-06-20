@@ -22,6 +22,12 @@ var retrievedPerson = {
   fullName: ''
 }
 
+//Ready handler
+$(document).ready(function(){
+  initMap();
+});
+
+
 function makeRequest(url, cb) {
   $.ajax({
     url: url,
@@ -35,7 +41,7 @@ function makeRequest(url, cb) {
 
 function writeReverseInfo(object) {
   //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
- master
+
   var person = "";
   var carrier = "";
   if (object.belongs_to[0].firstname && object.belongs_to[0].lastname) {
@@ -53,13 +59,14 @@ function writeReverseInfo(object) {
   } else {
     carrier = "Not Available";
   }
-    
+
 
   var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
   var carrier = object.carrier;
-
-  var lat = object.current_addresses.object.lat_long.latitude;
-  var lng = object.current_addresses.object.lat_long.longitude;
+  console.log(person);
+  console.log(carrier);
+  var lat = object.current_addresses[0].lat_long.latitude;
+  var lng = object.current_addresses[0].lat_long.longitude;
   console.log(lat);
   console.log(lng);
 
@@ -73,6 +80,7 @@ function writeReverseInfo(object) {
 function writeReputationInfo(object) {
   var reputation = object.reputation_level;
   var callType = object.reputation_details.type;
+  console.log(reputation);
   console.log(callType);
 
   var $row = $('<tr>');
@@ -95,6 +103,22 @@ $("#add-number-btn").on("click", function(event) {
 
     makeRequest(queryURLReverse, writeReverseInfo);
     makeRequest(queryURLReputation, writeReputationInfo);
-
-
 });
+
+
+//google maps
+function initMap() {
+
+      //Use LatLng object from google api.
+      var lat = "33.913308";
+      var long = "-84.3503384";
+      var latlng = new google.maps.LatLng(lat, long);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: latlng
+      });
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+}

@@ -3,10 +3,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>Spamtastic</title>
+	<link rel="icon" href="assets/images/phone.png">
 	<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
 	<script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/united/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
 	<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
 </head>
@@ -15,7 +15,7 @@
 		<nav class="navbar navbar-default">
   			<div class="container">
     			<div class="navbar-header">
-      				<a class="navbar-brand" href="#">spamTastic</a>
+      				<a class="navbar-brand" href="#"><span class="glyphicon glyphicon-earphone"></span>spamTastic</a>
     			</div>
     				<ul class="nav navbar-nav">
       					<li class="active"><a href="#">Home</a></li>
@@ -28,7 +28,7 @@
 			<br>
 
 			<div class="jumbotron">
-				<h1 class="text-center">spamTastic</h1>
+				<h1 id ="main-head" class="text-right"><span class="glyphicon glyphicon-earphone"></span>spamTastic</h1>
 			</div>
 
 			<div class="row">
@@ -81,7 +81,7 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Location</h3>
 					</div>
-					<div id="location-panel" class="panel-body">
+					<div id="map" class="panel-body location-panel">
 
 					</div>
 				</div>
@@ -92,5 +92,8 @@
 
 
 		<script src="assets/javascript/app.js"></script>
+
+		<!-- google maps api link/key -->
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVUhZc0oWIVh6kTL9ZIgu1ZA11iguAl0I&callback=initMap"></script>
 	</body>
 </html>
