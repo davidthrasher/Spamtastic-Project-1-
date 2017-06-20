@@ -41,7 +41,11 @@ function makeRequest(url, cb) {
 
 function writeReverseInfo(object) {
   //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> 97d47d72764d214c675cc7eead58480c5a4b5868
   var person = "";
   var carrier = "";
   if (object.belongs_to[0].firstname && object.belongs_to[0].lastname) {
