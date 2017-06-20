@@ -22,6 +22,12 @@ var retrievedPerson = {
   fullName: ''
 }
 
+//Ready handler
+$(document).ready(function(){
+  initMap();
+});
+
+
 function makeRequest(url, cb) {
   $.ajax({
     url: url,
@@ -97,6 +103,22 @@ $("#add-number-btn").on("click", function(event) {
 
     makeRequest(queryURLReverse, writeReverseInfo);
     makeRequest(queryURLReputation, writeReputationInfo);
-
-
 });
+
+
+//google maps
+function initMap() {
+
+      //Use LatLng object from google api.
+      var lat = "33.913308";
+      var long = "-84.3503384";
+      var latlng = new google.maps.LatLng(lat, long);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: latlng
+      });
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+}
