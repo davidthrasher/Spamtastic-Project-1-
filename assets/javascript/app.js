@@ -46,61 +46,60 @@ function writeReputationInfo(object) {
 }
 
 function writeReverseInfo(object) {
-  //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
+    //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
 
-  var person = "";
-  var carrier = "";
-  if (object.belongs_to[0].firstname && object.belongs_to[0].lastname) {
-    person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
-  } else if (object.belongs_to[0].firstname) {
-    person = object.belongs_to[0].firstname;
-  } else if (object.belongs_to[0].lastname) {
-    person = object.belongs_to[0].lastname;
-  } else {
-    person = "Not Available";
+    var person = "";
+    var carrier = "";
+    if (object.belongs_to[0].firstname && object.belongs_to[0].lastname) {
+      person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+    } else if (object.belongs_to[0].firstname) {
+      person = object.belongs_to[0].firstname;
+    } else if (object.belongs_to[0].lastname) {
+      person = object.belongs_to[0].lastname;
+    } else {
+      person = "Not Available";
+    }
+
+    if (object.carrier) {
+      carrier = object.carrier;
+    } else {
+      carrier = "Not Available";
+    }
+
+
+    var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+    var carrier = object.carrier;
+    console.log(person);
+    console.log(carrier);
+    var lat = object.current_addresses[0].lat_long.latitude;
+    var lng = object.current_addresses[0].lat_long.longitude;
+    console.log(lat);
+    console.log(lng);
+
+    var $row = $('<tr>');
+    $row.append($('<td>').text(person));
+    $row.append($('<td>').text(carrier));
+    $('#number-info').append($row);
+
+  //empy map div
+  // $( "#map" ).empty();
+  //Ready handler
+  $(document).ready(function(){
+    initMap();
+  });
+
+    function initMap() {
+        var latlng = new google.maps.LatLng(lat, lng);
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 6,
+          center: latlng
+        });
+        var marker = new google.maps.Marker({
+          position: latlng,
+          map: map
+        });
   }
 
-  if (object.carrier) {
-    carrier = object.carrier;
-  } else {
-    carrier = "Not Available";
-  }
-
-
-  var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
-  var carrier = object.carrier;
-  console.log(person);
-  console.log(carrier);
-  var lat = object.current_addresses[0].lat_long.latitude;
-  var lng = object.current_addresses[0].lat_long.longitude;
-  console.log(lat);
-  console.log(lng);
-
-//empy map div
-$( "#map" ).empty();
-//Ready handler
-$(document).ready(function(){
-  initMap();
-});
-
-  function initMap() {
-      var latlng = new google.maps.LatLng(lat, lng);
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: latlng
-      });
-      var marker = new google.maps.Marker({
-        position: latlng,
-        map: map
-      });
-}
-
-
-
-  var $row = $('<tr>');
-  $row.append($('<td>').text(person));
-  $row.append($('<td>').text(carrier));
-  $('#number-info').append($row);
 }
 
 
@@ -120,3 +119,4 @@ $("#add-number-btn").on("click", function(event) {
     makeRequest(queryURLReverse, writeReverseInfo);
     makeRequest(queryURLReputation, writeReputationInfo);
 });
+
