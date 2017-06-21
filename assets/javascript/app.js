@@ -76,7 +76,8 @@ function writeReverseInfo(object) {
   console.log(lat);
   console.log(lng);
 
-
+//empy map div
+$( "#map" ).empty();
 //Ready handler
 $(document).ready(function(){
   initMap();
