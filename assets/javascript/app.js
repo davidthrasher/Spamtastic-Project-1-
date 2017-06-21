@@ -22,12 +22,6 @@ var retrievedPerson = {
   fullName: ''
 }
 
-//Ready handler
-$(document).ready(function(){
-  initMap();
-});
-
-
 function makeRequest(url, cb) {
   $.ajax({
     url: url,
@@ -83,6 +77,25 @@ function writeReverseInfo(object) {
   console.log(lng);
 
 
+//Ready handler
+$(document).ready(function(){
+  initMap();
+});
+
+  function initMap() {
+      var latlng = new google.maps.LatLng(lat, lng);
+      var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 6,
+        center: latlng
+      });
+      var marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+}
+
+
+
   var $row = $('<tr>');
   $row.append($('<td>').text(person));
   $row.append($('<td>').text(carrier));
@@ -106,21 +119,3 @@ $("#add-number-btn").on("click", function(event) {
     makeRequest(queryURLReverse, writeReverseInfo);
     makeRequest(queryURLReputation, writeReputationInfo);
 });
-
-
-//google maps
-function initMap() {
-
-      //Use LatLng object from google api.
-      var lat = "33.913308";
-      var long = "-84.3503384";
-      var latlng = new google.maps.LatLng(lat, long);
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 6,
-        center: latlng
-      });
-      var marker = new google.maps.Marker({
-        position: latlng,
-        map: map
-      });
-}
