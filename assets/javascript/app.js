@@ -39,6 +39,18 @@ function makeRequest(url, cb) {
   });
 }
 
+function writeReputationInfo(object) {
+  var reputation = object.reputation_level;
+  var callType = object.reputation_details.type;
+  console.log(reputation);
+  console.log(callType);
+
+  var $row = $('<tr>');
+  $row.append($('<td>').text(reputation));
+  $row.append($('<td>').text(callType));
+  $('#number-info').append($row);
+}
+
 function writeReverseInfo(object) {
   //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
 
@@ -77,17 +89,7 @@ function writeReverseInfo(object) {
   $('#number-info').append($row);
 }
 
-function writeReputationInfo(object) {
-  var reputation = object.reputation_level;
-  var callType = object.reputation_details.type;
-  console.log(reputation);
-  console.log(callType);
 
-  var $row = $('<tr>');
-  $row.append($('<td>').text(reputation));
-  $row.append($('<td>').text(callType));
-  $('#number-info').append($row);
-}
 
 //Creating main function that happens upon number submit click.
 $("#add-number-btn").on("click", function(event) {
