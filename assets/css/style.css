@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 body {
   background-image: url("../../assets/images/gray.png");
 }
@@ -29,9 +29,8 @@ body {
   z-index:1;
   width:100%;
 }
-=======
-#map{ 
+
+#map{
 	height:400px;
 	width:100%;
 }
->>>>>>> 97d47d72764d214c675cc7eead58480c5a4b5868
