@@ -21,12 +21,13 @@ var reputationKey = "6112b420059f4d7c81cf99d5378dc961";
 var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
 function writeReputationInfo(object) {
-  var reputation = object.reputation_level;
+  console.log(object);
+  var reputation = object.data.reputation_level;
   var callType = "";
-  if (object.reputation_details.category = "null") {
-    callType = object.reputation_details.type;
+  if (object.data.reputation_details.category = "null") {
+    callType = object.data.reputation_details.type;
   } else {
-    callType = object.reputation_details.category;
+    callType = object.data.reputation_details.category;
   }
 
   console.log("===== Reputation: " + reputation);
@@ -41,25 +42,26 @@ function writeReputationInfo(object) {
 
 function writeReverseInfo(object) {
     //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
-
+    console.log('vvvvvvvvvvvvvv');
+    console.log(object);
     var person = "";
     var carrier = "";
 
-    if (object.belongs_to.length) {
-      person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+    if (object.data.belongs_to.length) {
+      person = object.data.belongs_to[0].firstname + ' ' + object.data.belongs_to[0].lastname;
     } else {
       person = "Not Available";
     }
 
 
     // var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
-    var carrier = object.carrier;
+    var carrier = object.data.carrier;
     console.log("===== Caller: " + person);
     console.log("===== Carrier: " + carrier);
-    var lat = object.current_addresses[0].lat_long.latitude;
-    var lng = object.current_addresses[0].lat_long.longitude;
+    var lat = object.data.current_addresses[0].lat_long.latitude;
+    var lng = object.data.current_addresses[0].lat_long.longitude;
     console.log(lat);
-    console.log(lng);``
+    console.log(lng);
 
   //empy map div
   // $( "#map" ).empty();
