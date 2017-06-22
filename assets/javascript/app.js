@@ -1,6 +1,4 @@
 // Initialize Firebase
-// globals: axios
-
 var config = {
   apiKey: "AIzaSyBPoB3vEaH9uWLWw0q-eXGIQEgNvU23uJs",
   authDomain: "spamtastic-255ab.firebaseapp.com",
@@ -11,8 +9,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// research axios
-
 //Establish Global Variables
 var database = firebase.database();
 var userNumber = "";
@@ -22,7 +18,7 @@ var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
 function writeReputationInfo(object) {
   console.log(object);
-  var reputation = object.data.reputation_level;
+  var reputation = object.data.reputation_details.score + "%";
   var callType = "";
   if (object.data.reputation_details.category = "null") {
     callType = object.data.reputation_details.type;
