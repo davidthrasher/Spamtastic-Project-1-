@@ -19,7 +19,7 @@ var reputationKey = "6112b420059f4d7c81cf99d5378dc961";
 var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
 function writeReputationInfo(object) {
-  console.log("===== Reputation Info: " + object);
+  console.log(object);
   var reputation = object.data.reputation_details.score + "%";
   var callType = "";
   if (object.data.reputation_details.category = "null") {
@@ -40,11 +40,13 @@ function writeReputationInfo(object) {
 
 function writeReverseInfo(object) {
     //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
-    console.log("===== Reverse Info: " + object);
+    console.log(object);
     var person = "";
     var carrier = "";
 
-    if (object.data.belongs_to.length) {
+    if (object.data.belongs_to.length && object.data.belongs_to[0].firstname === null && object.data.belongs_to[0].lastname === null){
+      person = "Not Available";
+    } else if (object.data.belongs_to.length) {
       person = object.data.belongs_to[0].firstname + ' ' + object.data.belongs_to[0].lastname;
     } else {
       person = "Not Available";
@@ -130,10 +132,10 @@ database.ref().on("child_added", function(childSnapshot){
     var calltype = childSnapshot.val().calltype;
     var usernumber = childSnapshot.val().usernumber;
 
-        if (reputation > "50%") {
-        $('#spam-info').append("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        if (reputation >= "50%") {
+        $('#spam-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
       } else {
-        $('#safe-info').append("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        $('#safe-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
       }
     });
 
