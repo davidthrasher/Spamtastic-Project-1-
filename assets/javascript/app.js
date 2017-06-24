@@ -9,6 +9,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+var database = firebase.database();
+
 //Establish Global Variables
 var database = firebase.database();
 var userNumber = "";
@@ -110,8 +112,33 @@ $("#add-number-btn").on("click", function(event) {
         $row.append($('<td>').text(reputation.reputation));
         $row.append($('<td>').text(reputation.callType));
         $('#number-info').append($row);
-      }))
+
+        database.ref().push({
+          person: revLookup.person,
+          carrier: revLookup.carrier,
+          reputation: reputation.reputation,
+          calltype: reputation.callType
+        });
+    }))
 });
+
+database.ref().on("child_added", function(childSnapshot){
+
+    var person = childSnapshot.val().person;
+    var carrier = childSnapshot.val().carrier;
+    var reputation = childSnapshot.val().reputation;
+    var calltype = childSnapshot.val().calltype;
+
+        if (reputation > "50%") {
+        $('#spam-info').append("<tr><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+      } else {
+        $('#safe-info').append("<tr><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+      }
+    });
+
+
+
+
 
 function initMap() {
         var latlng = new google.maps.LatLng(0, 0);
