@@ -19,7 +19,7 @@ var reputationKey = "6112b420059f4d7c81cf99d5378dc961";
 var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
 function writeReputationInfo(object) {
-  console.log(object);
+  console.log("===== Reputation Info: " + object);
   var reputation = object.data.reputation_details.score + "%";
   var callType = "";
   if (object.data.reputation_details.category = "null") {
@@ -40,8 +40,7 @@ function writeReputationInfo(object) {
 
 function writeReverseInfo(object) {
     //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
-    console.log('vvvvvvvvvvvvvv');
-    console.log(object);
+    console.log("===== Reverse Info: " + object);
     var person = "";
     var carrier = "";
 
@@ -117,7 +116,8 @@ $("#add-number-btn").on("click", function(event) {
           person: revLookup.person,
           carrier: revLookup.carrier,
           reputation: reputation.reputation,
-          calltype: reputation.callType
+          calltype: reputation.callType,
+          usernumber: userNumber
         });
     }))
 });
@@ -128,11 +128,12 @@ database.ref().on("child_added", function(childSnapshot){
     var carrier = childSnapshot.val().carrier;
     var reputation = childSnapshot.val().reputation;
     var calltype = childSnapshot.val().calltype;
+    var usernumber = childSnapshot.val().usernumber;
 
         if (reputation > "50%") {
-        $('#spam-info').append("<tr><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        $('#spam-info').append("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
       } else {
-        $('#safe-info').append("<tr><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        $('#safe-info').append("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
       }
     });
 
