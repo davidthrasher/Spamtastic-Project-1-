@@ -62,6 +62,15 @@ function writeReverseInfo(object) {
     console.log(lat);
     console.log(lng);
 
+    var city = object.data.current_addresses[0].city;
+    var state = object.data.current_addresses[0].state_code;
+    var country = object.data.current_addresses[0].country_code;
+    console.log(city);
+
+
+    var callLocation = city + ', ' + state + ', ' + country;
+    console.log("==== Location: " + callLocation);
+
   //empy map div
   // $( "#map" ).empty();
   //Ready handler
@@ -84,7 +93,8 @@ function writeReverseInfo(object) {
 
   return {
     person: person,
-    carrier: carrier
+    carrier: carrier,
+    callLocation: callLocation
   }
 
 }
@@ -112,6 +122,7 @@ $("#add-number-btn").on("click", function(event) {
         $row.append($('<td>').text(revLookup.carrier));
         $row.append($('<td>').text(reputation.reputation));
         $row.append($('<td>').text(reputation.callType));
+        $row.append($('<td>').text(revLookup.callLocation));
         $('#number-info').append($row);
 
         database.ref().push({
@@ -119,7 +130,8 @@ $("#add-number-btn").on("click", function(event) {
           carrier: revLookup.carrier,
           reputation: reputation.reputation,
           calltype: reputation.callType,
-          usernumber: userNumber
+          usernumber: userNumber,
+          callLocation: revLookup.callLocation
         });
     }))
 });
@@ -131,11 +143,12 @@ database.ref().on("child_added", function(childSnapshot){
     var reputation = childSnapshot.val().reputation;
     var calltype = childSnapshot.val().calltype;
     var usernumber = childSnapshot.val().usernumber;
+    var callLocation = childSnapshot.val().callLocation;
 
         if (reputation >= "50%") {
-        $('#spam-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        $('#spam-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td>");
       } else {
-        $('#safe-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td>");
+        $('#safe-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td>");
       }
     });
 
