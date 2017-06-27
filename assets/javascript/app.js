@@ -40,7 +40,7 @@ function writeReputationInfo(object) {
 
 //retrieve person, carrier, and call location info, create map location
 function writeReverseInfo(object) {
-    //Need an If/Else statement to provide placeholder name in the event that no name is available from API.
+    
     console.log(object);
     var person = "";
     var carrier = "";
@@ -54,7 +54,7 @@ function writeReverseInfo(object) {
       person = "Not Available";
     }
 
-    // var person = object.belongs_to[0].firstname + ' ' + object.belongs_to[0].lastname;
+    
     var carrier = object.data.carrier;
     console.log("===== Caller: " + person);
     console.log("===== Carrier: " + carrier);
