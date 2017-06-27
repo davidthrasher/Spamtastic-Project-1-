@@ -106,6 +106,8 @@ $("#add-number-btn").on("click", function(event) {
 
     userNumber = $("#number-input").val().trim();
 
+    if (userNumber.length >= 10 && userNumber.length < 14){
+
     var queryURLReverse = "https://proapi.whitepages.com/3.0/phone?phone=" + userNumber + "&api_key=" + reverseKey;
     var queryURLReputation = "https://proapi.whitepages.com/3.0/phone_reputation?phone=" + userNumber + "&api_key=" + reputationKey;
 
@@ -131,6 +133,15 @@ $("#add-number-btn").on("click", function(event) {
           callLocation: revLookup.callLocation
         });//end of database push
     }))//end of axios .then
+  } else {
+    $("#number-info").empty();
+
+    var $row = $('<tr>');
+
+    $row.append($('<td>').text("Please enter a valid 10 digit number or 13 digit international number."));
+    
+    $('#number-info').append($row);
+  }
 });//end of on click event
 
 database.ref().on("child_added", function(childSnapshot){
