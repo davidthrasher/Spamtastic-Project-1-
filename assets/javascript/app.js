@@ -157,7 +157,8 @@ $("#add-number-btn").on("click", function(event) {
           reputation: reputation.reputation,
           calltype: reputation.callType,
           usernumber: userNumber,
-          callLocation: revLookup.callLocation
+          callLocation: revLookup.callLocation,
+          timeAdded: firebase.database.ServerValue.TIMESTAMP
         });//end of database push
     }))//end of axios .then
   }//end of else to run API calls
@@ -165,19 +166,22 @@ $("#add-number-btn").on("click", function(event) {
 
 //Referencing firebase to add info to new variables when new child is added inside of database.
 database.ref().on("child_added", function(childSnapshot){
-
+    
     var person = childSnapshot.val().person;
     var carrier = childSnapshot.val().carrier;
     var reputation = childSnapshot.val().reputation;
     var calltype = childSnapshot.val().calltype;
     var usernumber = childSnapshot.val().usernumber;
     var callLocation = childSnapshot.val().callLocation;
-
+    var timeAdded = childSnapshot.val().timeAdded;
+      console.log(timeAdded);
+    var date = moment(timeAdded).format('MMMM Do YYYY, h:mm:ss a');  
+      console.log(date);
         //prepend call info to safe or spam pages
         if (reputation >= "50%") {
-        $('#spam-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td>");
+        $('#spam-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td><td>" + date + "</td>");
       } else {
-        $('#safe-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td>");
+        $('#safe-info').prepend("<tr><td>" + usernumber + "</td><td>" + person + "</td><td>" + carrier + "</td><td>" + reputation + "</td><td>" + calltype + "</td><td>" + callLocation + "</td><td>" + date + "</td>");
       }
     });//end of database childSnapshot
 
