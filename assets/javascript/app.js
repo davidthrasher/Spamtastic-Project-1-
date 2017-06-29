@@ -102,7 +102,7 @@ function writeReverseInfo(object) {
 $("#add-number-btn").on("click", function(event) {
   //Preventing default behavior for click event.
     event.preventDefault();
-    
+
 //Clearing out both divs that are being written to in the DOM.
     $("#number-info").empty();
     $("#error-message").empty();
@@ -121,7 +121,7 @@ $("#add-number-btn").on("click", function(event) {
 
       $('#error-message').append($row);
 
-// Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.      
+// Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.
   } else if (userNumber.length < 10 || userNumber.length >= 14) {
       $("#number-info").empty();
 
