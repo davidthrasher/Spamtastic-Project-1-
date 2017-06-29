@@ -102,12 +102,15 @@ function writeReverseInfo(object) {
 $("#add-number-btn").on("click", function(event) {
   //Preventing default behavior for click event.
     event.preventDefault();
+    
 //Clearing out both divs that are being written to in the DOM.
     $("#number-info").empty();
     $("#error-message").empty();
+
 //Gathering and console logging user input
     userNumber = $("#number-input").val().trim();
     console.log("===== User Number Entered: " + userNumber);
+
 // Validating If/Else statement part 1: If user number enter is NaN(Not a number) show error.
     if (isNaN(userNumber)) {
       $("#number-info").empty();
@@ -117,17 +120,27 @@ $("#add-number-btn").on("click", function(event) {
       $row.append($('<p>').text("Please enter a valid 10 digit number or 13 digit international number."));
 
       $('#error-message').append($row);
-    }
-// Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.
-    else if (userNumber.length >= 10 || userNumber.length <= 14) {
+
+// Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.      
+  } else if (userNumber.length < 10 || userNumber.length >= 14) {
+      $("#number-info").empty();
+
+      var $row = $('<tr>');
+
+      $row.append($('<p>').text("Please enter a valid 10 digit number or 13 digit international number."));
+
+      $('#error-message').append($row);
+  } else {
 //Storing API keys and URLs and userNumber into new variables.
     var queryURLReverse = "https://proapi.whitepages.com/3.0/phone?phone=" + userNumber + "&api_key=" + reverseKey;
     var queryURLReputation = "https://proapi.whitepages.com/3.0/phone_reputation?phone=" + userNumber + "&api_key=" + reputationKey;
+
 //Running both API calls to White Pages at one time inside of Axios, which is a Promise based, synchronous system.
     axios.all([axios.get(queryURLReverse), axios.get(queryURLReputation)])
       .then(axios.spread(function(revLookup, reputation) {
         reputation = writeReputationInfo(reputation);
         revLookup = writeReverseInfo(revLookup)
+
 //Appending specific info needed from axios/API calls into a new variable. Then appening variable row to #number-info inside of DOM.
         var $row = $('<tr>');
         $row.append($('<td>').text(revLookup.person));
@@ -136,6 +149,7 @@ $("#add-number-btn").on("click", function(event) {
         $row.append($('<td>').text(reputation.callType));
         $row.append($('<td>').text(revLookup.callLocation));
         $('#number-info').append($row);
+
 //Pushing up specific to firebase
         database.ref().push({
           person: revLookup.person,
@@ -146,8 +160,9 @@ $("#add-number-btn").on("click", function(event) {
           callLocation: revLookup.callLocation
         });//end of database push
     }))//end of axios .then
-  }
+  }//end of else to run API calls
 });//end of on click event
+
 //Referencing firebase to add info to new variables when new child is added inside of database.
 database.ref().on("child_added", function(childSnapshot){
 
@@ -174,4 +189,4 @@ function initMap() {
           center: latlng,
           mapTypeId: "hybrid"
         });
-}
+};
