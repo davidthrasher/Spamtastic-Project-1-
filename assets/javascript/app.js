@@ -108,7 +108,8 @@ $("#add-number-btn").on("click", function(event) {
     $("#error-message").empty();
 
 //Gathering and console logging user input
-    userNumber = $("#number-input").val().trim();
+    userNumber = $("#number-input").val().replace(/[\s+]/g, "");
+    userNumber = userNumber.replace(/[-&\/\\#,+()$~%.'":*?<>{}@^_=|;]/g, "");
     console.log("===== User Number Entered: " + userNumber);
 
 // Validating If/Else statement part 1: If user number enter is NaN(Not a number) show error.
@@ -121,7 +122,7 @@ $("#add-number-btn").on("click", function(event) {
 
       $('#error-message').append($row);
 
-// Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.
+// Validating If/Else statement part 2: If user number entered is a number with 10 digits, run usernumber into API calls.
   } else if (userNumber.length !== 10) {
       $("#number-info").empty();
 
