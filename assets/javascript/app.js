@@ -117,17 +117,17 @@ $("#add-number-btn").on("click", function(event) {
 
       var $row = $('<tr>');
 
-      $row.append($('<p>').text("Please enter a valid 10 digit number or 13 digit international number."));
+      $row.append($('<p>').text("Please enter a valid 10 digit domestic number."));
 
       $('#error-message').append($row);
 
 // Validating If/Else statement part 2: If user number entered is a number with more than 10 and less than 14 digits, run usernumber into API calls.
-  } else if (userNumber.length < 10 || userNumber.length >= 14) {
+  } else if (userNumber.length !== 10) {
       $("#number-info").empty();
 
       var $row = $('<tr>');
 
-      $row.append($('<p>').text("Please enter a valid 10 digit number or 13 digit international number."));
+      $row.append($('<p>').text("Please enter a valid 10 digit domestic number."));
 
       $('#error-message').append($row);
   } else {
@@ -166,7 +166,7 @@ $("#add-number-btn").on("click", function(event) {
 
 //Referencing firebase to add info to new variables when new child is added inside of database.
 database.ref().on("child_added", function(childSnapshot){
-    
+
     var person = childSnapshot.val().person;
     var carrier = childSnapshot.val().carrier;
     var reputation = childSnapshot.val().reputation;
@@ -175,7 +175,7 @@ database.ref().on("child_added", function(childSnapshot){
     var callLocation = childSnapshot.val().callLocation;
     var timeAdded = childSnapshot.val().timeAdded;
       console.log(timeAdded);
-    var date = moment(timeAdded).format('MMMM Do YYYY, h:mm:ss a');  
+    var date = moment(timeAdded).format('MMMM Do YYYY, h:mm:ss a');
       console.log(date);
         //prepend call info to safe or spam pages
         if (reputation >= "50%") {
