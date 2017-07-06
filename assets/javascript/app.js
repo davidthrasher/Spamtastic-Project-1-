@@ -117,7 +117,7 @@ $("#add-number-btn").on("click", function(event) {
 
       var $row = $('<tr>');
 
-      $row.append($('<p>').text("Please enter a valid 10 digit domestic number."));
+      $row.append($('<p>').text("Please enter a valid 10 digit domestic number"));
 
       $('#error-message').append($row);
 
@@ -127,7 +127,7 @@ $("#add-number-btn").on("click", function(event) {
 
       var $row = $('<tr>');
 
-      $row.append($('<p>').text("Please enter a valid 10 digit domestic number."));
+      $row.append($('<p>').text("Please enter a valid 10 digit domestic number"));
 
       $('#error-message').append($row);
   } else {
