@@ -31,10 +31,10 @@ function writeReputationInfo(object) {
 
   var $row = $('<tr>');
 
-  $row.append($('<p>').text("Invalid Number"));
+  $row.append($('<p>').text("Number not found"));
 
   $('#error-message').append($row);
-
+  new Audio('assets/operatorfixed.wav').play()
 }
   var callType = "";
   if (object.data.reputation_details.category = "null") {
