@@ -21,7 +21,21 @@ var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 //Get reputation and type of spam call
 function writeReputationInfo(object) {
   console.log(object);
-  var reputation = object.data.reputation_details.score + "%";
+  var reputation = "";
+
+  if (object.data.reputation_details) {
+  reputation = object.data.reputation_details.score + "%";
+} else {
+  $("#number-info").empty();
+  $('#error-message').empty();
+
+  var $row = $('<tr>');
+
+  $row.append($('<p>').text("Invalid Number"));
+
+  $('#error-message').append($row);
+
+}
   var callType = "";
   if (object.data.reputation_details.category = "null") {
     callType = object.data.reputation_details.type;
@@ -143,6 +157,7 @@ $("#add-number-btn").on("click", function(event) {
         revLookup = writeReverseInfo(revLookup)
 
 //Appending specific info needed from axios/API calls into a new variable. Then appening variable row to #number-info inside of DOM.
+$("#error-message").empty();
         var $row = $('<tr>');
         $row.append($('<td>').text(revLookup.person));
         $row.append($('<td>').text(revLookup.carrier));
