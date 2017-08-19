@@ -14,8 +14,8 @@ var database = firebase.database();
 //Establish Global Variables
 var database = firebase.database();
 var userNumber = "";
-var reverseKey = "47274e63692f4997a88f0d2291bcf909";
-var reputationKey = "0e7a90e1217f426db440eda4ed84a3e3";
+var reverseKey = "d57162fd09294ec2bb4cb5763a228cf9";
+var reputationKey = "	aebc27d3e1c84a45aefa18b3811d3fb9";
 var mapsKey = "AIzaSyCsptyS96_W0OHNgvk792B6ASpVNdM6tqA";
 
 //Get reputation and type of spam call
